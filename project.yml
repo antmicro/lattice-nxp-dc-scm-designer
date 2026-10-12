@@ -9,43 +9,46 @@ scenarios:
         description: 'Demo scenario prepared for OCP Global Summit 2025'
         device: 2025_ocp_global_summit_demo
         payloads:
-            - device: dc-scm_osm-l_carrier_card_with_bmc_som -> bmc-reference-osm -> lattice-semiconductor-lfcpnx-100-8cbg256c
-              software: scm_ltpi_rtl
             - device: dc-scm_osm-l_carrier_card_with_bmc_som -> bmc-reference-osm -> nxp-mimx94398dvmmaa
               software: openbmc -> openbmc_upstream
             - device: dc-scm_osm-l_carrier_card_with_bmc_som -> bmc-reference-osm -> nxp-mimx94398dvmmaa
               software: openbmc_yocto_meta_layer
+        bitstreams:
             - device: lincoln_city_server -> lincoln_city_hpm -> lattice-semiconductor-lcmxo3d-9400hc-5bg400c
               software: hpm_ltpi_rtl
+            - device: dc-scm_osm-l_carrier_card_with_bmc_som -> bmc-reference-osm -> lattice-semiconductor-lfcpnx-100-8cbg256c
+              software: scm_ltpi_rtl
 
     Fan control demo:
         description: 'Reference design for the LTPI connection between two FPGAs. They tunnel I2C interface between OpenBMC on i.MX94 and a fan controller'
         payloads:
-            - device: lattice-semiconductor-lfmxo5-55td-8bbg256c--0
-              software: scm_ltpi_rtl
-            - device: lattice-semiconductor-lfmxo5-55td-8bbg256c--1
-              software: hpm_ltpi_rtl
             - device: nxp-mimx94398dvmmaa
               software: openbmc -> openbmc_upstream
             - device: nxp-mimx94398dvmmaa
               software: openbmc_yocto_meta_layer
+        bitstreams:
+            - device: lattice-semiconductor-lfmxo5-55td-8bbg256c--0
+              software: scm_ltpi_rtl
+            - device: lattice-semiconductor-lfmxo5-55td-8bbg256c--1
+              software: hpm_ltpi_rtl
 
 devices:
     bmc-reference-carrier-board: ref
     bmc-reference-osm: ref
     dc-scm_osm-l_carrier_card_with_bmc_som: ref
     dc-scm-development-setup: ref
-
-    # XXX(pkoscik): required to make VSD asset binding work
     lattice-semiconductor-lfcpnx-100-8cbg256c: ref
     lattice-semiconductor-lcmxo3d-9400hc-5bg400c: ref
     lattice-semiconductor-lfmxo5-55td-8bbg256c: ref
     nxp-mimx94398dvmmaa: ref
     lincoln_city_hpm: ref
-
     imx943_evk: ref
-
     lincoln_city_server: ref
+
+    DC-SCM Edge Connector:
+      group: hidden
+    Laptop:
+      group: hidden
 
     Fan control demo:
         image: https://designer.antmicro.com/dynamic-assets/latest/vendor-icons/antmicro.svg
@@ -62,6 +65,17 @@ devices:
         contains:
             - dc-scm_osm-l_carrier_card_with_bmc_som
             - lincoln_city_server
+
+    HPM LTPI RTL:
+        description: FPGA bitstream that implements the LTPI logic for communication between the Host Processor Module controller and the platform components
+        category: Bitstreams
+        sources:
+          Source code (reference): https://www.latticesemi.com/view_document?document_id=53665
+    SCM LTPI RTL:
+        description: FPGA bitstream that implements the LTPI logic for communication between the Secure Control Module and the HPM controller
+        category: Bitstreams
+        sources:
+          Source code (reference): https://www.latticesemi.com/view_document?document_id=53665
 
 software:
     OpenBMC:
@@ -80,14 +94,4 @@ software:
         description: Yocto meta layer with all necessary software components and configurations, required to run OpenBMC on the OSM board
         what: yocto
 
-    HPM LTPI RTL:
-        description: FPGA bitstream that implements the LTPI logic for communication between the Host Processor Module controller and the platform components
-        what: fpga-bitstream
-        sources:
-          Source code (reference): https://www.latticesemi.com/view_document?document_id=53665
-    SCM LTPI RTL:
-        description: FPGA bitstream that implements the LTPI logic for communication between the Secure Control Module and the HPM controller
-        what: fpga-bitstream
-        sources:
-          Source code (reference): https://www.latticesemi.com/view_document?document_id=53665
 
