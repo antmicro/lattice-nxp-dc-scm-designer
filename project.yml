@@ -56,13 +56,22 @@ devices:
         contains:
             - lattice-semiconductor-lfmxo5-55td-8bbg256c
             - lattice-semiconductor-lfmxo5-55td-8bbg256c
+            - lattice-semiconductor-lcmxo3d-9400hc-5bg400c
+            - texas-instruments-tmp451aidqfr
+            - texas-instruments-tmp451aidqfr
+            - realtek-rtl8211fs-cg
             - nxp-mimx94398dvmmaa
+            - server_fan
+            - server_fan
+            - server_fan
+            - server_fan
 
     2025 OCP Global Summit demo:
         category: Complex devices
         description: Demo setup for 2025 OCP Global Summit
-        image: ocp-global-summit.webp
+        image: ./ocp-global-summit.webp
         contains:
+            - laptop
             - dc-scm_osm-l_carrier_card_with_bmc_som
             - lincoln_city_server
 
