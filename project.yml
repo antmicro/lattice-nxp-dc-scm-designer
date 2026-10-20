@@ -51,7 +51,7 @@ devices:
       group: hidden
 
     Fan control demo:
-        image: https://designer.antmicro.com/dynamic-assets/latest/vendor-icons/antmicro.svg
+        image: https://designer.verks.ai/dynamic-assets/latest/vendor-icons/antmicro.svg
         category: Others
         contains:
             - lattice-semiconductor-lfmxo5-55td-8bbg256c
